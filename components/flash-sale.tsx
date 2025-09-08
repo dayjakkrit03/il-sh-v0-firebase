@@ -63,37 +63,37 @@ export function FlashSale() {
         </div>
 
         <div className="text-center mb-8">
-          <p className="text-sm sm:text-base md:text-lg mb-4">ลดราคาพิเศษ สินค้าคุณภาพ ในราคาที่คุณไม่ควรพลาด!</p>
-          <div className="flex items-center justify-center gap-1 sm:gap-2 text-xs sm:text-sm">
-            <Clock className="h-3 w-3 sm:h-4 sm:w-4" />
+          <p className="text-base sm:text-lg md:text-xl mb-6">ลดราคาพิเศษ สินค้าคุณภาพ ในราคาที่คุณไม่ควรพลาด!</p>
+          <div className="flex items-center justify-center gap-2 sm:gap-4 text-sm sm:text-base">
+            <Clock className="h-4 w-4 sm:h-5 sm:w-5" />
             <span>เหลือเวลาอีก:</span>
-            <div className="flex items-center gap-0.5 sm:gap-1">
+            <div className="flex items-center gap-1 sm:gap-2">
               <div className="flex flex-col items-center">
-                <span className="bg-white/20 px-1 sm:px-2 py-0.5 sm:py-1 rounded text-white font-bold text-xs sm:text-sm">
+                <span className="bg-white/20 px-2 sm:px-3 py-1 sm:py-2 rounded-md text-white font-bold text-base sm:text-xl md:text-2xl">
                   {timeLeft.days.toString().padStart(2, "0")}
                 </span>
-                <span className="text-xs">วัน</span>
+                <span className="text-xs sm:text-sm">วัน</span>
               </div>
-              <span className="text-xs sm:text-sm">:</span>
+              <span className="text-sm sm:text-base md:text-lg font-bold mx-1">:</span>
               <div className="flex flex-col items-center">
-                <span className="bg-white/20 px-1 sm:px-2 py-0.5 sm:py-1 rounded text-white font-bold text-xs sm:text-sm">
+                <span className="bg-white/20 px-2 sm:px-3 py-1 sm:py-2 rounded-md text-white font-bold text-base sm:text-xl md:text-2xl">
                   {timeLeft.hours.toString().padStart(2, "0")}
                 </span>
-                <span className="text-xs">ชั่วโมง</span>
+                <span className="text-xs sm:text-sm">ชั่วโมง</span>
               </div>
-              <span className="text-xs sm:text-sm">:</span>
+              <span className="text-sm sm:text-base md:text-lg font-bold mx-1">:</span>
               <div className="flex flex-col items-center">
-                <span className="bg-white/20 px-1 sm:px-2 py-0.5 sm:py-1 rounded text-white font-bold text-xs sm:text-sm">
+                <span className="bg-white/20 px-2 sm:px-3 py-1 sm:py-2 rounded-md text-white font-bold text-base sm:text-xl md:text-2xl">
                   {timeLeft.minutes.toString().padStart(2, "0")}
                 </span>
-                <span className="text-xs">นาที</span>
+                <span className="text-xs sm:text-sm">นาที</span>
               </div>
-              <span className="text-xs sm:text-sm">:</span>
+              <span className="text-sm sm:text-base md:text-lg font-bold mx-1">:</span>
               <div className="flex flex-col items-center">
-                <span className="bg-white/20 px-1 sm:px-2 py-0.5 sm:py-1 rounded text-white font-bold text-xs sm:text-sm">
+                <span className="bg-white/20 px-2 sm:px-3 py-1 sm:py-2 rounded-md text-white font-bold text-base sm:text-xl md:text-2xl">
                   {timeLeft.seconds.toString().padStart(2, "0")}
                 </span>
-                <span className="text-xs">วินาที</span>
+                <span className="text-xs sm:text-sm">วินาที</span>
               </div>
             </div>
           </div>
@@ -155,14 +155,14 @@ export function FlashSale() {
                 key={index}
                 className="gap-1 sm:gap-2 bg-white text-foreground hover:shadow-lg hover:-translate-y-2 transition-all duration-300 overflow-hidden p-0 flex flex-col group"
               >
-                <div className="relative overflow-hidden">
+                <div className="relative overflow-hidden aspect-square">
                   <img
                     src={product.image || "/placeholder.svg"}
                     alt={product.name}
-                    className="w-full aspect-[5/6] object-cover transition-transform duration-300 group-hover:scale-110"
+                    className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
                   />
                   <div
-                    className={`absolute inset-0 border-2 sm:border-4 ${getFrameBorderColor(discountPercentage)} rounded-lg pointer-events-none`}
+                    className={`absolute inset-0 border-4 sm:border-8 ${getFrameBorderColor(discountPercentage)} rounded-lg pointer-events-none`}
                   >
                     <div className="absolute top-1 sm:top-2 left-1 sm:left-2 right-1 sm:right-2 flex justify-between items-start">
                       <div className="flex flex-col items-start gap-0.5 sm:gap-1">
@@ -177,7 +177,7 @@ export function FlashSale() {
                       </div>
                     </div>
                     <div className="absolute bottom-1 sm:bottom-2 left-1 sm:left-2 right-1 sm:right-2 text-center">
-                      <div className="bg-white/90 px-0.5 sm:px-2 py-0.5 sm:py-1 rounded text-[8px] sm:text-xs font-bold text-gray-800">
+                      <div className="bg-white px-1 sm:px-3 py-1 rounded text-xs sm:text-sm font-bold text-blue-600">
                         {product.sku}
                       </div>
                     </div>

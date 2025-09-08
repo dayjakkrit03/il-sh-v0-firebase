@@ -1,4 +1,5 @@
 import { ProductCard } from "./product-card"
+import { ChevronRight } from "lucide-react"
 
 const sampleProducts = [
   {
@@ -11,6 +12,7 @@ const sampleProducts = [
     reviewCount: 128,
     badge: "Sale" as const,
     inStock: true,
+    freeShipping: true,
   },
   {
     id: "2",
@@ -21,6 +23,8 @@ const sampleProducts = [
     reviewCount: 89,
     badge: "Hot" as const,
     inStock: true,
+    isWishlisted: true,
+    freeShipping: false,
   },
   {
     id: "3",
@@ -32,6 +36,8 @@ const sampleProducts = [
     reviewCount: 256,
     badge: "Sale" as const,
     inStock: true,
+    isWishlisted: true,
+    freeShipping: true,
   },
   {
     id: "4",
@@ -41,6 +47,7 @@ const sampleProducts = [
     rating: 4.6,
     reviewCount: 45,
     inStock: true,
+    freeShipping: false,
   },
   {
     id: "5",
@@ -52,6 +59,7 @@ const sampleProducts = [
     reviewCount: 167,
     badge: "Sale" as const,
     inStock: true,
+    freeShipping: true,
   },
   {
     id: "6",
@@ -62,6 +70,7 @@ const sampleProducts = [
     reviewCount: 23,
     badge: "New" as const,
     inStock: true,
+    freeShipping: true,
   },
   {
     id: "7",
@@ -73,6 +82,7 @@ const sampleProducts = [
     reviewCount: 312,
     badge: "Sale" as const,
     inStock: true,
+    freeShipping: true,
   },
   {
     id: "8",
@@ -84,6 +94,7 @@ const sampleProducts = [
     reviewCount: 67,
     badge: "Sale" as const,
     inStock: false,
+    freeShipping: false,
   },
 ]
 
@@ -92,9 +103,10 @@ export function ProductGrid() {
     <section className="py-12 bg-background">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between mb-8">
-          <h2 className="text-xl md:text-2xl lg:text-3xl font-bold text-foreground">สินค้าแนะนำ</h2>
-          <a href="#" className="text-primary hover:text-primary/80 font-medium text-sm md:text-base">
-            ดูทั้งหมด →
+          <h2 className="text-2xl font-bold text-foreground">สินค้าแนะนำ</h2>
+          <a href="#" className="flex items-center text-blue-600 hover:text-blue-800 font-medium text-sm">
+            <span>ดูทั้งหมด</span>
+            <ChevronRight className="h-5 w-5" />
           </a>
         </div>
 

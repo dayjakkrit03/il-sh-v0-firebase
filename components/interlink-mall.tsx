@@ -1,69 +1,70 @@
-import { Card, CardContent } from "@/components/ui/card"
-
-const mallStores = [
+const stores = [
   {
     name: "CB Cotton IT Store",
+    category: "IT & Network Solutions",
     image: "/store-cb-cotton.jpg",
-    category: "คอมพิวเตอร์",
+    logoChar: "C",
   },
   {
-    name: "COMBITO SUITE",
+    name: "CORRETTO SUITE",
+    category: "Enterprise IT Equipment",
     image: "/store-combito.jpg",
-    category: "ซอฟต์แวร์",
+    logoChar: "C",
   },
   {
     name: "Thailand Tech Plaza",
+    category: "Network & Server Solutions",
     image: "/store-thailand-tech.jpg",
-    category: "เทคโนโลยี",
+    logoChar: "T",
   },
   {
-    name: "NOIT Computer",
+    name: "IN2IT Computer",
+    category: "Colorful Tech Solutions",
     image: "/store-noit.jpg",
-    category: "คอมพิวเตอร์",
+    logoChar: "I",
   },
   {
     name: "Smart Tech Shop",
+    category: "Smart IT Solutions",
     image: "/store-smart-tech.jpg",
-    category: "อุปกรณ์อัจฉริยะ",
+    logoChar: "S",
   },
   {
-    name: "Discount Systems",
+    name: "Quiescent Systems",
+    category: "Professional IT Hardware",
     image: "/store-discount.jpg",
-    category: "ระบบคอมพิวเตอร์",
+    logoChar: "Q",
   },
 ]
 
 export function InterlinkMall() {
   return (
-    <section className="py-12 bg-background">
+    <section className="py-12 bg-gray-50">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between mb-8">
-          <h2 className="text-xl md:text-2xl lg:text-3xl font-bold text-foreground">InterlinkMall</h2>
-          <a href="#" className="text-primary hover:text-primary/80 font-medium text-sm md:text-base">
-            Shop More →
+          <h2 className="text-2xl font-bold text-gray-800">InterlinkMall</h2>
+          <a href="#" className="text-blue-600 hover:text-blue-800 font-semibold text-sm md:text-base">
+            Shop More &gt;
           </a>
         </div>
-
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-          {mallStores.map((store, index) => (
-            <Card
-              key={index}
-              className="group hover:shadow-lg transition-all duration-300 cursor-pointer hover:-translate-y-1 bg-card"
-            >
-              <CardContent className="p-0">
-                <div className="aspect-square overflow-hidden rounded-t-lg">
-                  <img
-                    src={store.image || "/placeholder.svg"}
-                    alt={store.name}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                  />
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 md:gap-6">
+          {stores.map((store, index) => (
+            <div key={index} className="overflow-hidden bg-white border border-gray-200 rounded-lg shadow-sm transition-all duration-200 ease-in-out hover:-translate-y-1 hover:shadow-lg">
+              <div className="relative">
+                <img
+                  src={store.image}
+                  alt={store.name}
+                  className="w-full h-auto aspect-[4/3] object-cover block"
+                />
+                <div className="absolute bottom-2 left-2 flex items-center justify-center w-8 h-8 bg-white rounded-full shadow-md">
+                  <span className="font-bold text-gray-700 text-sm">{store.logoChar}</span>
                 </div>
-                <div className="p-3 text-center">
-                  <h3 className="font-medium text-sm text-card-foreground mb-1">{store.name}</h3>
-                  <p className="text-xs text-muted-foreground">{store.category}</p>
-                </div>
-              </CardContent>
-            </Card>
+              </div>
+              <div className="p-3">
+                <h3 className="font-semibold text-sm text-gray-900 truncate">{store.name}</h3>
+                <p className="text-xs text-gray-500 truncate">{store.category}</p>
+              </div>
+            </div>
           ))}
         </div>
       </div>

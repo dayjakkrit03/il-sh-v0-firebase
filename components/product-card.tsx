@@ -1,3 +1,4 @@
+
 import { Star, ShoppingCart, Heart, Eye } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
@@ -13,6 +14,8 @@ interface ProductCardProps {
   reviewCount: number
   badge?: "Sale" | "New" | "Hot"
   inStock: boolean
+  isWishlisted?: boolean
+  freeShipping?: boolean
 }
 
 export function ProductCard({
@@ -23,78 +26,68 @@ export function ProductCard({
   image,
   rating,
   reviewCount,
-  badge,
   inStock,
+  badge,
+  isWishlisted,
+  freeShipping,
 }: ProductCardProps) {
   const renderStars = (rating: number) => {
     return Array.from({ length: 5 }, (_, i) => (
       <Star
         key={i}
-        className={`h-3 w-3 ${i < Math.floor(rating) ? "fill-yellow-400 text-yellow-400" : "text-gray-300"}`}
+        className={`h-4 w-4 ${i < Math.floor(rating) ? "fill-yellow-400 text-yellow-400" : "text-gray-300"}`}
       />
     ))
   }
 
   const discountPercentage = originalPrice ? Math.round(((originalPrice - price) / originalPrice) * 100) : 0
 
-  const getDiscountBadgeColor = (percentage: number) => {
-    if (percentage >= 80) return "bg-red-700 text-white" // Dark red for 80%+
-    if (percentage >= 60) return "bg-red-600 text-white" // Red for 60-79%
-    if (percentage >= 40) return "bg-orange-500 text-white" // Orange for 40-59%
-    if (percentage >= 20) return "bg-yellow-500 text-white" // Yellow for 20-39%
-    return "bg-gray-500 text-white" // Default gray for less than 20%
-  }
-
   return (
-    <Card className="group hover:shadow-lg hover:-translate-y-2 transition-all duration-300 bg-card overflow-hidden p-0 flex flex-col h-full gap-2">
+    <Card className="group p-0 border rounded-lg overflow-hidden shadow-md hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 flex flex-col h-full bg-card">
       <div className="relative overflow-hidden">
-        <div className="relative aspect-[5/6]">
+        <div className="relative aspect-[1/1]">
           <img
             src={image || "/placeholder.svg"}
             alt={name}
-            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
           />
-
-          <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-            <div className="flex items-center gap-1 text-white text-[8px] sm:text-xs font-medium drop-shadow-lg">
-              <Eye className="h-2 w-2 sm:h-3 sm:w-3 animate-bounce" />
-              ดูรายละเอียด
+          <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+            <div className="text-white text-center">
+              <Eye className="h-8 w-8 mx-auto mb-2 animate-wiggle" />
+              <p className="font-bold">ดูรายละเอียด</p>
             </div>
           </div>
         </div>
 
-        <div className="absolute top-2 left-2 flex flex-col gap-1 z-10">
-          {badge && (
-            <Badge
-              variant={badge === "Sale" ? "destructive" : "secondary"}
-              className={`text-[8px] sm:text-xs ${
-                badge === "Sale"
-                  ? "bg-red-500 text-white"
-                  : badge === "New"
-                    ? "bg-green-500 text-white"
-                    : "bg-orange-500 text-white"
-              } px-1 sm:px-2 py-0.5 sm:py-1`}
-            >
-              {badge}
-            </Badge>
-          )}
-          {discountPercentage > 0 && (
+        {discountPercentage > 0 && (
             <Badge
               variant="destructive"
-              className={`text-[8px] sm:text-xs ${getDiscountBadgeColor(discountPercentage)} px-1 sm:px-2 py-0.5 sm:py-1`}
+              className="absolute top-2 left-2 bg-red-500 text-white px-2 py-1 text-xs font-semibold z-10"
             >
               -{discountPercentage}%
             </Badge>
           )}
-        </div>
 
-        <Button
-          size="sm"
-          variant="ghost"
-          className="absolute top-2 right-2 h-6 w-6 sm:h-8 sm:w-8 p-0 bg-white/80 hover:bg-white opacity-0 group-hover:opacity-100 transition-opacity z-10"
-        >
-          <Heart className="h-3 w-3 sm:h-4 sm:w-4" />
-        </Button>
+        <div className="absolute top-2 right-2 flex items-center gap-1 z-10">
+          {badge && badge !== "Sale" && (
+            <Badge
+              className={`px-2 py-1 text-xs font-semibold ${badge === "Hot" ? "bg-orange-500 text-white" : "bg-green-500 text-white"}`}
+            >
+              {badge}
+            </Badge>
+          )}
+          <div className="h-8 w-8 bg-gray-200/80 rounded-full flex items-center justify-center cursor-pointer hover:bg-gray-300 transition-colors">
+            <Heart className={`h-4 w-4 ${isWishlisted ? 'fill-red-500 text-red-500' : 'text-gray-600'}`} />
+          </div>
+        </div>
+        
+        {freeShipping && (
+          <Badge
+              className="absolute bottom-2 right-2 bg-green-500 text-white px-2 py-1 text-xs font-semibold"
+            >
+              ส่งฟรี
+          </Badge>
+        )}
 
         {!inStock && (
           <div className="absolute inset-0 bg-black/50 flex items-center justify-center z-10">
@@ -105,30 +98,30 @@ export function ProductCard({
         )}
       </div>
 
-      <div className="px-2 sm:px-4 pb-2 sm:pb-4 flex-1 flex flex-col">
-        <h3 className="font-medium text-xs sm:text-sm line-clamp-2 text-card-foreground mb-1">{name}</h3>
+      <div className="p-3 flex-1 flex flex-col">
+        <h3 className="font-medium text-sm text-gray-800 line-clamp-2 mb-2 h-10">{name}</h3>
 
         <div className="mt-auto">
-          <div className="flex items-center gap-1 mb-1 sm:mb-2">
+          <div className="flex items-center gap-1 mb-2">
             <div className="flex">{renderStars(rating)}</div>
             <span className="text-xs text-muted-foreground">({reviewCount})</span>
           </div>
 
-          <div className="flex items-center gap-1 sm:gap-2 mb-2 sm:mb-3">
-            <span className="text-sm sm:text-lg font-bold text-primary">฿{price.toLocaleString()}</span>
+          <div className="flex items-baseline gap-2 mb-3">
+            <span className="text-primary font-bold text-xl">฿{price.toLocaleString()}</span>
             {originalPrice && (
-              <span className="text-xs sm:text-sm text-muted-foreground line-through">
+              <span className="text-sm text-gray-500 line-through">
                 ฿{originalPrice.toLocaleString()}
               </span>
             )}
           </div>
 
           <Button
-            className="w-full bg-primary hover:bg-primary/90 text-primary-foreground group-hover:animate-pulse text-xs sm:text-sm"
+            className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold group-hover:animate-wiggle"
             size="sm"
             disabled={!inStock}
           >
-            <ShoppingCart className="h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2 group-hover:animate-bounce" />
+            <ShoppingCart className="h-4 w-4 mr-2" />
             {inStock ? "ใส่ตะกร้า" : "สินค้าหมด"}
           </Button>
         </div>
